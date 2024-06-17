@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9779BE122C1F607200808C1B /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9779BE112C1F607200808C1B /* ButtonView.swift */; };
+		9779BE142C20DB3C00808C1B /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9779BE132C20DB3C00808C1B /* CreateAccountView.swift */; };
+		9779BE162C20DE1B00808C1B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9779BE152C20DE1B00808C1B /* MainView.swift */; };
 		978557232C1F30DD00D7B204 /* PanicApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978557222C1F30DD00D7B204 /* PanicApp.swift */; };
 		978557252C1F30DD00D7B204 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978557242C1F30DD00D7B204 /* ContentView.swift */; };
 		978557272C1F30E300D7B204 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 978557262C1F30E300D7B204 /* Assets.xcassets */; };
@@ -18,6 +20,8 @@
 
 /* Begin PBXFileReference section */
 		9779BE112C1F607200808C1B /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
+		9779BE132C20DB3C00808C1B /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
+		9779BE152C20DE1B00808C1B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		9785571F2C1F30DD00D7B204 /* Panic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Panic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		978557222C1F30DD00D7B204 /* PanicApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanicApp.swift; sourceTree = "<group>"; };
 		978557242C1F30DD00D7B204 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -61,6 +65,7 @@
 				978557302C1F36BC00D7B204 /* AuthView */,
 				978557222C1F30DD00D7B204 /* PanicApp.swift */,
 				978557242C1F30DD00D7B204 /* ContentView.swift */,
+				9779BE152C20DE1B00808C1B /* MainView.swift */,
 				978557262C1F30E300D7B204 /* Assets.xcassets */,
 				978557282C1F30E300D7B204 /* Preview Content */,
 			);
@@ -79,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				978557312C1F36F000D7B204 /* LogInView.swift */,
+				9779BE132C20DB3C00808C1B /* CreateAccountView.swift */,
 			);
 			path = AuthView;
 			sourceTree = "<group>";
@@ -162,6 +168,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9779BE142C20DB3C00808C1B /* CreateAccountView.swift in Sources */,
+				9779BE162C20DE1B00808C1B /* MainView.swift in Sources */,
 				978557322C1F36F000D7B204 /* LogInView.swift in Sources */,
 				97D37F712C1F56D200DF8084 /* InputView.swift in Sources */,
 				9779BE122C1F607200808C1B /* ButtonView.swift in Sources */,
