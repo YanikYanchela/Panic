@@ -1,21 +1,27 @@
 //
-//  LogInView.swift
+//  CreateAccountView.swift
 //  Panic
 //
-//  Created by Дмитрий Яновский on 16.06.24.
+//  Created by Дмитрий Яновский on 17.06.24.
 //
 
 import SwiftUI
 
-struct LogInView: View {
+struct CreateAccountView: View {
     
+    @State var fullname = ""
     @State var email = ""
     @State var password = ""
+    @State var confirmPassword = ""
     @State var showPassword = false
     
+    @Environment(\.dismiss) var dismiss
+    
     var isButtonDisabled: Bool {
-        !isValidEmail(email) || password.isEmpty || password.count < 6
+        !isValidEmail(email) || password.isEmpty || password.count < 6 || password != confirmPassword
     }
+    
+    var isCheckPassword: Bool { password == confirmPassword }
     
     var body: some View {
         NavigationStack {
@@ -24,23 +30,26 @@ struct LogInView: View {
                 
                 HStack {
                     VStack(alignment: .leading) {
-                        Text("Welcome \nback.")
+                        Text("Create\naccount.")
                             .font(.largeTitle)
                             .fontWeight(.semibold)
                             .bold()
                             .foregroundColor(.black)
                         
-                        Text("login to continue...")
+                        Text("It takes less than a minute..")
                             .font(.subheadline)
                             .bold()
                             .foregroundColor(.black)
                     }
                     .padding(.horizontal, 20)
-                    
+                   
                     Spacer()
                 }
                 
                 VStack(spacing: 40) {
+                    InputView(text: $fullname, placeholder: "Full name")
+                        .autocapitalization(.words)
+                    
                     InputView(text: $email, placeholder: "Email")
                         .disableAutocorrection(true)
                         .autocapitalization(.none)
@@ -57,34 +66,38 @@ struct LogInView: View {
                         }
                     }
                     
-                    Button("forgot password?") {
-                        // Action for forgot password
+                    ZStack(alignment: .trailing) {
+                        InputView(text: $confirmPassword, placeholder: "Confirm password", isSecureField: !showPassword)
+                            .keyboardType(.asciiCapable)
+                        
+                        Image(systemName: isCheckPassword ? "checkmark.circle.fill" : "xmark.circle.fill")
+                            .foregroundColor(Color.black)
+                            .padding(.trailing, 8)
                     }
-                    .foregroundColor(.black)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
                 }
                 .padding(.horizontal, 30)
                 
-                ButtonView(title: "Log in", isDisabled: isButtonDisabled) {
-                    // Action for login
+                ButtonView(title: "Create an Account", isDisabled: isButtonDisabled) {
+                    // Action for create account
                 }
                 .padding(.horizontal, 20)
                 
                 HStack(spacing: 5) {
-                    Text("Don't have an account?")
+                    Text("Already have an account?")
                         .foregroundColor(.gray)
                     
-                    NavigationLink(destination: CreateAccountView()) {
-                        Text("Create one.")
-                            .foregroundColor(.black)
-                            .bold()
+                    Button("Sign in.") {
+                        dismiss()
                     }
+                    .foregroundColor(.black)
+                    .bold()
                 }
                 .foregroundColor(.black)
                 
                 Spacer()
             }
             .navigationBarHidden(true)
+            .background(Color.green)
         }
     }
     
@@ -95,8 +108,8 @@ struct LogInView: View {
     }
 }
 
-struct LogInView_Previews: PreviewProvider {
+struct CreateAccountView_Previews: PreviewProvider {
     static var previews: some View {
-        LogInView()
+        CreateAccountView()
     }
 }
