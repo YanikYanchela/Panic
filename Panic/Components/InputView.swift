@@ -16,7 +16,7 @@ struct InputView: View {
     @FocusState var isEnabled: Bool
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 15) {
+        VStack(alignment: .leading, spacing: 5) {
             if isSecureField {
                 inputField(SecureField(placeholder, text: $text))
                     .textInputAutocapitalization(.none)

@@ -25,11 +25,13 @@ struct MainView: View {
                 Text("RATING")
                     .tag("RATING")
                 
-                Text("PROFILE")
+                ProfileView()
                     .tag("PROFILE")
+                  
                 
                 Text("SETTINGS")
                     .tag("SETTINGS")
+                   
             }
             
             HStack(alignment: .top) {
@@ -43,7 +45,8 @@ struct MainView: View {
             .frame(maxWidth: .infinity)
             .background(Color.white)
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-            .shadow(color: .black.opacity(0.15), radius: 5, x: 3, y: 3)
+            .shadow(color: .black.opacity(0.9), radius: 2, x: 0, y: 0)
+            
         }
         .ignoresSafeArea()
     }
@@ -88,13 +91,12 @@ struct TabBarItem: View {
             .opacity(selectedTab == tab ? 1 : 0.7)
             .padding(.vertical, tab == "PROFILE" ? 0 : 10)
             .padding(.horizontal, tab == "PROFILE" ? 10 : 10)
-            .background(selectedTab == tab ? Color.white : Color.clear)
-            .cornerRadius(10)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(selectedTab == tab ? Color.black.opacity(0.2) : Color.clear, lineWidth: 1)
-            )
-        }
+            .background(selectedTab == tab ? Color.white.opacity(0.01) : Color.clear)
+            .clipShape(Capsule())
+            .shadow(color: .black.opacity(0.3), radius: 2, x: 5, y: 5)
+            .fontWeight(.bold)
+           
+        } 
     }
 }
 
