@@ -1,5 +1,5 @@
 //
-//  LogInView.swift
+//  LoginView.swift
 //  Panic
 //
 //  Created by Дмитрий Яновский on 16.06.24.
@@ -7,15 +7,9 @@
 
 import SwiftUI
 
-struct LogInView: View {
+struct LoginView: View {
     
-    @State var email = ""
-    @State var password = ""
-    @State var showPassword = false
-    
-    var isButtonDisabled: Bool {
-        !isValidEmail(email) || password.isEmpty || password.count < 6
-    }
+    @StateObject var viewModel = LoginViewModel()
     
     var body: some View {
         NavigationStack {
@@ -41,17 +35,17 @@ struct LogInView: View {
                 }
                 
                 VStack(spacing: 40) {
-                    InputView(text: $email, placeholder: "Email")
+                    InputView(text: $viewModel.email, placeholder: "Email")
                         .disableAutocorrection(true)
                         .autocapitalization(.none)
                         .keyboardType(.emailAddress)
                     
                     ZStack(alignment: .trailing) {
-                        InputView(text: $password, placeholder: "Password", isSecureField: !showPassword)
+                        InputView(text: $viewModel.password, placeholder: "Password", isSecureField: !viewModel.showPassword)
                             .keyboardType(.asciiCapable)
                         
-                        Button(action: { showPassword.toggle() }) {
-                            Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
+                        Button(action: { withAnimation(.easeInOut(duration: 0.1)) { viewModel.showPassword.toggle() }}) {
+                            Image(systemName: viewModel.showPassword ? "eye.fill" : "eye.slash.fill")
                                 .foregroundColor(.black)
                                 .padding(.trailing, 8)
                         }
@@ -65,8 +59,8 @@ struct LogInView: View {
                 }
                 .padding(.horizontal, 30)
                 
-                ButtonView(title: "Log in", isDisabled: isButtonDisabled) {
-                    // Action for login
+                ButtonView(title: "Log in", isDisabled: viewModel.isButtonDisabled  ) {
+                    viewModel.login()
                 }
                 .padding(.horizontal, 20)
                 
@@ -87,16 +81,10 @@ struct LogInView: View {
             .navigationBarHidden(true)
         }
     }
-    
-    func isValidEmail(_ email: String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailPred.evaluate(with: email)
-    }
 }
 
-struct LogInView_Previews: PreviewProvider {
+struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LogInView()
+        LoginView()
     }
 }

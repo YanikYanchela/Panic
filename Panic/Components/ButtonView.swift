@@ -30,11 +30,12 @@ struct ButtonView: View {
         }
         .disabled(isDisabled)
         .padding(.horizontal, 50)
+        .animation(.default, value: isDisabled)
     }
 }
 
 struct ButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        ButtonView(title: "Title", isDisabled: true, action: {})
+        ButtonView(title: "Title", isDisabled: false, action: {})
     }
 }

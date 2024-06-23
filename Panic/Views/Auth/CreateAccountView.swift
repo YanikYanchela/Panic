@@ -9,19 +9,9 @@ import SwiftUI
 
 struct CreateAccountView: View {
     
-    @State var fullname = ""
-    @State var email = ""
-    @State var password = ""
-    @State var confirmPassword = ""
-    @State var showPassword = false
+    @StateObject var viewModel = CreateAccountViewModel()
     
-    @Environment(\.dismiss) var dismiss
-    
-    var isButtonDisabled: Bool {
-        !isValidEmail(email) || password.isEmpty || password.count < 6 || password != confirmPassword
-    }
-    
-    var isCheckPassword: Bool { password == confirmPassword }
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationStack {
@@ -47,37 +37,39 @@ struct CreateAccountView: View {
                 }
                 
                 VStack(spacing: 40) {
-                    InputView(text: $fullname, placeholder: "Full name")
+                    InputView(text: $viewModel.fullname, placeholder: "Full name")
                         .autocapitalization(.words)
                     
-                    InputView(text: $email, placeholder: "Email")
+                    InputView(text: $viewModel.email, placeholder: "Email")
                         .disableAutocorrection(true)
                         .autocapitalization(.none)
                         .keyboardType(.emailAddress)
                     
                     ZStack(alignment: .trailing) {
-                        InputView(text: $password, placeholder: "Password", isSecureField: !showPassword)
+                        InputView(text: $viewModel.password, placeholder: "Password", isSecureField: !viewModel.showPassword)
                             .keyboardType(.asciiCapable)
                         
-                        Button(action: { showPassword.toggle() }) {
-                            Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
+                        Button(action: { withAnimation(.easeInOut(duration: 0.1)){ viewModel.showPassword.toggle() }}) {
+                            Image(systemName: viewModel.showPassword ? "eye.fill" : "eye.slash.fill")
                                 .foregroundColor(.black)
                                 .padding(.trailing, 8)
                         }
                     }
                     
                     ZStack(alignment: .trailing) {
-                        InputView(text: $confirmPassword, placeholder: "Confirm password", isSecureField: !showPassword)
+                        InputView(text: $viewModel.confirmPassword , placeholder: "Confirm password", isSecureField: !viewModel.showPassword)
                             .keyboardType(.asciiCapable)
                         
-                        Image(systemName: isCheckPassword ? "checkmark.circle.fill" : "xmark.circle.fill")
+                        Image(systemName: viewModel.isCheckPassword ? "checkmark.circle.fill" : "xmark.circle.fill")
                             .foregroundColor(Color.black)
                             .padding(.trailing, 8)
+                            .rotationEffect(viewModel.isCheckPassword ? .degrees(0) : .degrees(360))
+                            .animation(.easeInOut(duration: 0.4), value: viewModel.isCheckPassword)
                     }
                 }
                 .padding(.horizontal, 30)
                 
-                ButtonView(title: "Create an Account", isDisabled: isButtonDisabled) {
+                ButtonView(title: "Create an Account", isDisabled: viewModel.isButtonDisabled) {
                     // Action for create account
                 }
                 .padding(.horizontal, 20)
@@ -97,7 +89,6 @@ struct CreateAccountView: View {
                 Spacer()
             }
             .navigationBarHidden(true)
-            .background(Color.green)
         }
     }
     
